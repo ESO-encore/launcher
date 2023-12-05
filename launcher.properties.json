@@ -1,0 +1,6 @@
+{
+	"websiteUrl": "http://www.eso-encore.com",
+	"installationDirectory": "installationDirectory",
+	"saveFile": "saveFile.7z",
+	"backupLocation": "backupFile.7z"
+}

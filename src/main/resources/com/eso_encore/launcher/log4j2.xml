@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR" packages="org.graylog2.log4j2" name="example-config">
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%highlight{%-6p}] %c{1} %L │ %m%n"/>
+        </Console>
+        <GELF name="gelfAppender" server="graylog.northpool.pvt" port="1514" protocol="UDP" includeExceptionCause="true">
+        </GELF>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="gelfAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
