@@ -1,6 +1,8 @@
 {
-	"websiteUrl": "http://www.eso-encore.com",
-	"installationDirectory": "installationDirectory",
-	"saveFile": "saveFile.7z",
-	"backupLocation": "backupFile.7z"
+  "websiteUrl": "http://localhost:4567",
+  "installationDirectory": "installationDirectory",
+  "patchDirectory": "patchDirectory",
+  "saveFile": "saveFile.7z",
+  "backupLocation": "backupFile.7z",
+  "launchCount": 2
 }

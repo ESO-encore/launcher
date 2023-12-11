@@ -7,8 +7,13 @@ class Properties {
 	
 	val String websiteUrl
 	val String installationDirectory
+	val String patchDirectory
 	val String saveFile
 	val String backupLocation
-	val String savedVersion
+	val int launchCount
+	
+	def withLaunchCount(int launchCount) {
+		return new Properties(websiteUrl, installationDirectory, patchDirectory, saveFile, backupLocation, launchCount)
+	}
 	
 }

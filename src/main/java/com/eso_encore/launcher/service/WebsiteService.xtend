@@ -9,18 +9,22 @@ import java.net.URL
 
 class WebsiteService {
 
-	def getVersion() {
+	def String getVersion() {
 		get("/api/version")
 	}
 
-	def getChecksum() {
+	def String getChecksum() {
 		get("/api/checksum")
 	}
 
 	def getSize() {
 		Long.parseLong(get("/api/size"))
 	}
-	
+
+	def getPatchSize(String installedVersion) {
+		Long.parseLong(post('''/api/patch-size?installedVersion=«installedVersion»'''))
+	}
+
 	def getUrl(String path) {
 		new URL(Launcher.properties.websiteUrl + path)
 	}
@@ -33,19 +37,38 @@ class WebsiteService {
 		val conn = url.openConnection as HttpURLConnection
 		conn.requestMethod = "GET"
 
-		val responseCode = conn.responseCode
-		val content = new StringBuffer()
-		try(val in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
-			var String inputLine
-			while ((inputLine = in.readLine()) !== null) {
-				content.append(inputLine)
-			}
-		}
+		read(conn)
+	}
 
-		if (responseCode < 200 || responseCode > 299) {
-			throw new IOException('''HTTP «responseCode» from «url»: «content.toString»''')
+	def post(String path) {
+		post(path.getUrl())
+	}
+
+	def post(URL url) {
+		val conn = url.openConnection as HttpURLConnection
+		conn.requestMethod = "POST"
+
+		read(conn)
+	}
+
+	def String read(HttpURLConnection conn) {
+		try {
+			val responseCode = conn.responseCode
+			val content = new StringBuffer()
+			try(val in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+				var String inputLine
+				while ((inputLine = in.readLine()) !== null) {
+					content.append(inputLine)
+				}
+			}
+
+			if (responseCode < 200 || responseCode > 299) {
+				throw new IOException('''HTTP «responseCode» from «conn.URL»: «content.toString»''')
+			}
+			return content.toString()
+		} catch (Exception e) {
+			throw new IOException("Failed to read from "+conn.URL, e)
 		}
-		return content.toString()
 	}
 
 }
