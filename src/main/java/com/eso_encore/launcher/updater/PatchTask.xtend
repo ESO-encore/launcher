@@ -28,7 +28,7 @@ class PatchTask extends Task<Void> {
 		try {
 			val latestVersion = website.version
 			while (updater.currentVersion != latestVersion) {
-				println("Upgrading " + updater.currentVersion + " to " + latestVersion)
+				log.info("Upgrading " + updater.currentVersion + " to " + latestVersion)
 
 				updateTitle("Setting up")
 				val saveFile = Paths.get(properties.saveFile)
@@ -47,19 +47,19 @@ class PatchTask extends Task<Void> {
 				val conn = url.openConnection as HttpURLConnection
 				conn.requestMethod = "GET"
 
-				println("downloading")
+				log.info("downloading")
 				updater.downloadWithProgress(conn, saveFile.toFile) [ bytesRead |
 					updateProgress(bytesRead, size)
 					updateMessage(
 						FileUtils.byteCountToDisplaySize(bytesRead) + "/" + sizeString + "\t(" + bytesRead + "b/" +
 							size + "b)\t" + (bytesRead.doubleValue / size * 100).floatValue + "%")
 				]
-				println("Downloaded")
+				log.info("Downloaded")
 
 				updateTitle("Extracting patch")
 				updateMessage("")
 				updateProgress(-1, 1)
-				println("Extracting")
+				log.info("Extracting")
 				FileUtils.deleteDirectory(patchDirectory.toFile())
 				patchDirectory.toFile.mkdirs()
 				val randomAccessFile = new RandomAccessFile(saveFile.toFile, "r")
@@ -84,7 +84,7 @@ class PatchTask extends Task<Void> {
 				]
 				
 				
-				println("Extracted")
+				log.info("Extracted")
 
 				updateTitle("Applying patch")
 				updateMessage("")

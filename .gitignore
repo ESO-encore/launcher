@@ -19,3 +19,4 @@ buildNumber.properties
 *.7z
 installationDirectory/
 patchDirectory/
+package/
