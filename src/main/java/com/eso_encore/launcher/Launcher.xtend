@@ -69,7 +69,8 @@ class Launcher extends Application {
 			(0 ..< launchCount.valueProperty.get).forEach [
 				new Thread [
 					val builder = new ProcessBuilder(
-						Paths.get(properties.installationDirectory).resolve("element/elementclient.exe").toString()
+						Paths.get(properties.installationDirectory).resolve("element/elementclient.exe").toString(),
+						"-console:1"
 					)
 					builder.directory(Paths.get(properties.installationDirectory).resolve("element").toFile)
 					builder.start()
