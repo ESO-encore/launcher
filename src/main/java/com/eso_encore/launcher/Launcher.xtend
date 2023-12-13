@@ -71,10 +71,10 @@ class Launcher extends Application {
 					val builder = new ProcessBuilder(
 						Paths.get(properties.installationDirectory).resolve("element/elementclient.exe").toString()
 					)
-					builder.redirectErrorStream(true)
 					builder.directory(Paths.get(properties.installationDirectory).resolve("element").toFile)
 					builder.start()
 				].start()
+				(launchButton.scene.window as Stage).close()
 			]
 		]
 		val scene = new Scene(
