@@ -9,6 +9,7 @@ import java.nio.file.Paths
 import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 
 import static com.eso_encore.launcher.Launcher.properties
+import java.nio.file.Path
 
 @FinalFieldsConstructor
 class Updater {
@@ -37,7 +38,7 @@ class Updater {
 		return new InitialInstallTask(website, this)
 	}
 
-	def getCurrentVersion() {
+	def String getCurrentVersion() {
 		Files.readAllLines(versionPath).join
 	}
 
@@ -45,11 +46,11 @@ class Updater {
 		return Files.exists(installationPath) && Files.exists(versionPath)
 	}
 
-	def installationPath() {
+	def Path installationPath() {
 		return Paths.get(properties.installationDirectory)
 	}
 
-	def version() {
+	def String version() {
 		Files.readAllLines(versionPath).join
 	}
 
