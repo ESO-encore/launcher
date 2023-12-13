@@ -1,0 +1,5 @@
+package com.eso_encore.launcher
+
+enum Action {
+	NONE,INITIAL_DOWNLOAD,INITIAL_EXTRACT,UPDATE_DOWNLOAD,UPDATE_EXTRACT,UPDATE_APPLY
+}

@@ -4,5 +4,6 @@
   "patchDirectory": "patchDirectory",
   "saveFile": "saveFile.7z",
   "backupLocation": "backupFile.7z",
-  "launchCount": 2
+  "currentAction": "NONE",
+  "launchCount": 3
 }

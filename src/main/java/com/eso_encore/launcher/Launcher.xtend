@@ -23,7 +23,7 @@ import org.apache.commons.io.FileUtils
 class Launcher extends Application {
 
 	static val gson = new GsonBuilder().setPrettyPrinting().create()
-	public static val properties = gson.fromJson(
+	public static var properties = gson.fromJson(
 		Files.readAllLines(propertiesPath).join(),
 		Properties
 	)
@@ -63,10 +63,7 @@ class Launcher extends Application {
 			t.start()
 		]
 		launchCount.valueProperty.addListener [
-			Files.write(
-				propertiesPath,
-				gson.toJson(properties.withLaunchCount(launchCount.valueProperty.get)).bytes
-			)
+			save(properties.withLaunchCount(launchCount.valueProperty.get))
 		]
 		launchButton.onAction = [
 			(0 ..< launchCount.valueProperty.get).forEach [
@@ -75,14 +72,15 @@ class Launcher extends Application {
 						Paths.get(properties.installationDirectory).resolve("element/elementclient.exe").toString()
 					)
 					builder.redirectErrorStream(true)
+					builder.directory(Paths.get(properties.installationDirectory).resolve("element").toFile)
 					builder.start()
 				].start()
 			]
 		]
 		val scene = new Scene(
 			root,
-			1200,
-			600
+			800,
+			400
 		)
 		primaryStage.setOnCloseRequest[System.exit(0)]
 		primaryStage.setScene(scene)
@@ -115,6 +113,14 @@ class Launcher extends Application {
 		progress.titleProperty.bind(task.titleProperty)
 		progress.messageProperty.bind(task.messageProperty)
 		progress.progressProperty.bind(task.progressProperty)
+	}
+
+	def static save(Properties properties) {
+		Files.write(
+			propertiesPath,
+			gson.toJson(properties).bytes
+		)
+		Launcher.properties = properties
 	}
 
 	def static propertiesPath() {

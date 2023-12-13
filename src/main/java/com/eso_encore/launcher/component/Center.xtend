@@ -22,6 +22,7 @@ class Center extends StackPane {
 				new BackgroundSize(AUTO, AUTO, true, true, true, true)
 			)
 		)
+		setPrefSize(700, 342)
 	}
 	
 }
