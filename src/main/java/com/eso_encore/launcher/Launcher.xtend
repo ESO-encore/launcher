@@ -54,6 +54,7 @@ class Launcher extends Application {
 	override start(Stage primaryStage) throws Exception {
 		redownloadButton.onAction = [
 			launchButton.disable = false
+			Platform.runLater[progress.titleProperty.set("Deleting installation...")]
 			FileUtils.deleteDirectory(new File(properties.installationDirectory))
 			val task = updater.installationTask
 			bindProgress(task)
