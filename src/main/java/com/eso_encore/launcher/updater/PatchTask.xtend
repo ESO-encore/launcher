@@ -36,7 +36,7 @@ class PatchTask extends Task<Void> {
 				val patchDirectory = Paths.get(properties.patchDirectory)
 
 				updateMessage("Getting download size")
-				val size = website.size
+				val size = website.getPatchSize(updater.currentVersion)
 				val sizeString = FileUtils.byteCountToDisplaySize(size)
 				updateMessage("Getting version")
 				val version = website.version

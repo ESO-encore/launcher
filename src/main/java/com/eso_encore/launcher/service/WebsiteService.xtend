@@ -22,7 +22,7 @@ class WebsiteService {
 	}
 
 	def getPatchSize(String installedVersion) {
-		Long.parseLong(post('''/api/patch-size?installedVersion=«installedVersion»'''))
+		Long.parseLong(get('''/api/size-patch?installedVersion=«installedVersion»'''))
 	}
 
 	def getUrl(String path) {
